@@ -1,0 +1,72 @@
+<h1>{{title}}</h1>
+<h2>You have {{count}} tasks</h2>
+<h2>Name: {{user.name}}</h2>
+<h2>Total points to earn: {{count*2}}</h2>
+<h2>{{getSum(10,25)}}</h2>
+<input type="text" [disabled]="isDisabled" placeholder="Enter your name">
+<button (click)="buttonClicked()">Click Me</button>
+<br>
+<button [disabled]="isDisabled">Submit</button>
+<img [src]="imageUrl" [alt]="buttonLabel">
+<input [value]="progressValue">
+
+<!-- You can bind to any DOM property -->
+<div [style.width.%]="progressValue"></div>
+<br>
+<button (click)="addTask('Buy Milk')">Add Task</button>
+<input (keydown)="onKeyPress($event)">
+<input (input)="onInput($event.target.value)">
+<div (mouseover)="highlight($event)">Hover over me</div>
+
+<input [(ngModel)]="searchTerm">
+<p>Searching for {{searchTerm}}</p>
+
+<button (click)="toggleButtonDisable()">toggleDisable</button>
+<input [(ngModel)]="listName">
+
+<button (click)="addUser()">AddUser</button>
+
+@for (user of listOfUsers; track $index) {
+  <p>{{user}}</p>
+  
+}
+@empty {
+    <p>No users found</p>
+  }
+<br>
+<button (click)="toggle()">Toggle</button>
+@if(isLoggedIn){
+<p>welcome</p>
+}@else{
+    <p>Please log in</p>
+}
+
+@for(fruit of fruits; track $index){
+    @if($first){<p>First element{{fruit}}</p>}
+    @if($last){<p>Last Element{{fruit}}</p>}
+    
+}
+<button (click)="randomStatus()">Change Status</button>
+@switch(status){
+    @case ('pending') {
+        <p>Your order is pending</p>
+    }
+    @case ('packed') {
+        <p>Your order is packed</p>
+    }
+    @case ('shipped') {
+        <p>Your order is shipped</p>
+    }
+    @case ('dilivery') {
+        <p>Your order is out for dilivery</p>
+    }
+
+    
+}
+<p [ngClass]="{'active': isActive, 'error': hasError}">Hello World</p>
+
+<p>{{myName|uppercase }}</p>
+<p>{{myName|lowercase}}</p>
+<p>{{myCTC| currency:'INR'}}</p>
+<p>{{date| date:'fulldate'}}</p>
+

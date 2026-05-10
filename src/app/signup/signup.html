@@ -1,0 +1,68 @@
+
+<!-- <form (ngSubmit)="onSubmit()">
+    <input type="text" name="username" [(ngModel)]="name" placeholder="Username" required>
+    <input type="email" name="email" [(ngModel)]="email" placeholder="Email" required>
+    <button type="submit">Submit</button>
+
+</form> -->
+
+<!-- <form (ngSubmit)="onSubmit()">
+
+    <label>Name:</label>
+    <input #name="ngModel" type="text" name="username" [(ngModel)]="user.name"placeholder="Username" required>
+    <div *ngIf="name.invalid && name.touched">
+        Name is required
+    </div>
+    <br><br>
+    <label>Email:</label>
+    <input #email="ngModel" type="text" name="email" [(ngModel)]="user.email"placeholder="Email" required email>
+    <div *ngIf="email.invalid && email.touched">
+        Email is required
+    </div>
+    <br><br>
+    <label>Password:</label>
+    <input #password="ngModel" type="password" name="password" [(ngModel)]="user.password" placeholder="Password" required>
+    <div *ngIf="password.invalid && password.touched">
+        Password is required
+    </div>
+
+    <button type="submit">Submit</button>
+</form> -->
+
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <label>Name:</label>
+    <input type="text" name="username" formControlName="name" placeholder="Username">
+    @if(signupForm.get('name')?.invalid && signupForm.get('name')?.touched){
+        <span>Name is required</span>
+    }
+    
+    <br><br>
+    <label>Email:</label>
+    <input type="text" name="email" formControlName="email"placeholder="Email">
+    @if(signupForm.get('email')?.invalid && signupForm.get('email')?.touched){
+        <span>Email is required</span>
+    }
+        
+    
+    <br><br>
+    <label>Password:</label>
+    <input type="text" name="password" formControlName="password" placeholder="Password" required>
+     @if(signupForm.get('password')?.invalid && signupForm.get('password')?.touched){
+        <span>Password is required</span>
+     }
+        
+    
+    @if(signupForm.get('password')?.errors?.['containseName']){
+        <span>Password cannot have your name</span>
+
+    }
+     
+    @if(signupForm.get('password')?.errors?.['containsSpecialChar']){
+        <span>Password cannot have these special char: @,!</span>
+    }
+        
+    
+    <br><br>
+    <button type="submit">Submit</button>
+
+</form>

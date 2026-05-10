@@ -1,0 +1,19 @@
+<h1>Login Form</h1>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <label>Username</label>
+    <input type="text" name="username" formControlName="name" placeholder="Name" required>
+    @if(this.loginForm.get('name')?.errors?.['required'] && this.loginForm.get('name')?.touched){
+        <p>Please fill username</p>
+    }
+    <br><br>
+    <label>Password</label>
+    <input type="password" name="password" formControlName="password" placeholder="Passowrd" required>
+    @if(this.loginForm.get('password')?.errors?.['required'] && this.loginForm.get('password')?.touched){
+        <p>Please fill password</p>
+    }
+    <br><br>
+    <button type="submit">Login</button>
+
+</form>
+<a [routerLink]="['/register']">Registration page</a>

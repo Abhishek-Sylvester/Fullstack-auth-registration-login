@@ -1,0 +1,47 @@
+<h1>Registration Page</h1>
+
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <label>Name:</label>
+    <input type="text" name="username" formControlName="name" placeholder="Name" required>
+    @if(this.registrationForm.get('name')?.invalid && this.registrationForm.get('name')?.touched){
+        <span>Name is required</span>
+
+    }
+    <br><br>
+    <label>Email:</label>
+    <input type="email" name="email" formControlName="email" placeholder="Email" required>
+    @if(this.registrationForm.get('email')?.invalid && this.registrationForm.get('email')?.touched){
+        <span> Email is required</span>
+    }
+    @if(this.registrationForm.get('email')?.errors?.['email']){
+        <span>Please enter valid email</span>
+    }
+    <br><br>
+    <label>Password:</label>
+    <input type="password" name="password" formControlName="password" placeholder="Password" required>
+    @if(this.registrationForm.get('password')?.invalid && this.registrationForm.get('password')?.touched){
+        <span>Password is required</span>
+    }
+    @if(this.registrationForm.get('password')?.errors?.['ToShort']){
+        <span>Password should be min of 8 characters</span>
+    }
+    @if(this.registrationForm.get('password')?.errors?.['containsSpecialChar']){
+        <span>Password should not contain the specified specialChars</span>
+    }
+    @if(this.registrationForm.errors?.['passwordMismatch'] && this.registrationForm.get('password')?.touched){
+        <span>Password and ConfirmPassword should match</span>
+    }
+    <br><br>
+    <label>Confirm Password:</label>
+    <input type="password" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password" required>
+    @if(this.registrationForm.get('confirmPassword')?.invalid && this.registrationForm.get('confirmPassword')?.touched){
+        <span>confirmPassword is required</span>
+    }
+    @if(this.registrationForm.errors?.['passwordMismatch'] && this.registrationForm.get('confirmPassword')?.touched){
+        <span>Password and ConfirmPassword should match</span>
+    }
+    <br><br>
+    <button type="submit">Register</button>
+
+</form>
+<a [routerLink]="['/login']">Login page</a>
