@@ -16,3 +16,5 @@ jobs:
         with: 
             java-version: 17
             distribution: temurin
+      - name: build project
+        run: ./gradlew build
