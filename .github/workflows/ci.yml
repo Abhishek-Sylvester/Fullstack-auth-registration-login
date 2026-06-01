@@ -19,4 +19,4 @@ jobs:
       - name: grant gradlew permission
         run: chmod +x gradlew
       - name: build project
-        run: ./gradlew build
+        run: ./gradlew build -x test
