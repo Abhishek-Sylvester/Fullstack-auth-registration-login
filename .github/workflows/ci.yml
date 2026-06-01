@@ -20,3 +20,8 @@ jobs:
         run: chmod +x gradlew
       - name: build project
         run: ./gradlew build -x test
+      - name: store project jar
+        uses: actions/upload-artifact@v3
+        with:
+          name: jar creation
+          path: build/libs/*.jar
