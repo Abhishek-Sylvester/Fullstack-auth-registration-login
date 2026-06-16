@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# Copyright © 2015 the original authors.
+
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -57,7 +57,11 @@
 #       Darwin, MinGW, and NonStop.
 #
 #   (3) This script is generated from the Groovy template
+<<<<<<< HEAD
 #       https://github.com/gradle/gradle/blob/2d6327017519d23b96af35865dc997fcb544fb40/platforms/jvm/plugins-application/src/main/resources/org/gradle/api/internal/plugins/unixStartScript.txt
+=======
+#       https://github.com/gradle/gradle/blob/HEAD/platforms/jvm/plugins-application/src/main/resources/org/gradle/api/internal/plugins/unixStartScript.txt
+>>>>>>> 7ea8d7bddd8c71bf78cd4e2c28feaceb25a44776
 #       within the Gradle project.
 #
 #       You can find Gradle at https://github.com/gradle/gradle/.
@@ -114,6 +118,10 @@ case "$( uname )" in                #(
   NONSTOP* )        nonstop=true ;;
 esac
 
+<<<<<<< HEAD
+=======
+CLASSPATH="\\\"\\\""
+>>>>>>> 7ea8d7bddd8c71bf78cd4e2c28feaceb25a44776
 
 
 # Determine the Java command to use to start the JVM.
@@ -171,6 +179,10 @@ fi
 # For Cygwin or MSYS, switch paths to Windows format before running java
 if "$cygwin" || "$msys" ; then
     APP_HOME=$( cygpath --path --mixed "$APP_HOME" )
+<<<<<<< HEAD
+=======
+    CLASSPATH=$( cygpath --path --mixed "$CLASSPATH" )
+>>>>>>> 7ea8d7bddd8c71bf78cd4e2c28feaceb25a44776
 
     JAVACMD=$( cygpath --unix "$JAVACMD" )
 
@@ -210,6 +222,10 @@ DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
 
 set -- \
         "-Dorg.gradle.appname=$APP_BASE_NAME" \
+<<<<<<< HEAD
+=======
+        -classpath "$CLASSPATH" \
+>>>>>>> 7ea8d7bddd8c71bf78cd4e2c28feaceb25a44776
         -jar "$APP_HOME/gradle/wrapper/gradle-wrapper.jar" \
         "$@"
 

@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.example.onBoardingNew.model.USerModel;
 import com.example.onBoardingNew.repository.UserRepository;
@@ -57,7 +62,6 @@ public class AuthService {
 		if (userData.isPresent()) {
 			System.out.println("The user data is present");
 			USerModel existingUser = userData.get();
-			System.out.println("name: " + existingUser.getUsername());
 			if (passwordEncoder.matches(userModel.getPassword(), existingUser.getPassword())) {
 				String token = jwtUtil.generateToken(existingUser.getUsername());
 				System.out.println("Password correct");
@@ -68,6 +72,7 @@ public class AuthService {
 			}
 
 		} else {
+
 			System.out.println("User data not present");
 		}
 		return "User data not present";
