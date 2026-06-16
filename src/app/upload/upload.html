@@ -1,0 +1,43 @@
+<div class="upload-card">
+  <h3>Upload file</h3>
+  <small>Any file type supported</small>
+
+  <div class="file-area" (click)="filePicker.click()">
+    <a style="color: #378ADD; text-decoration: underline; cursor:pointer;">Choose a file</a>
+    <br>
+    <span>{{ selectedFiles ? 'File selected' : 'No files selected' }}</span>
+    
+    <input #filePicker type="file" (change)="onFileSelected($event)" multiple hidden>
+  </div>
+
+  <div class="file-info">
+    @if (selectedFiles) {
+      @for (file of selectedFiles; track $index) {
+        <span>{{ file?.name }}</span>
+        <small>{{ (file?.size??0 / 1024).toFixed(1) }} KB</small>
+        <br>
+      }
+    }
+    <button (click)="clearFile()">✕</button>
+  </div>
+  <div class="uploaded-url">
+    @if (uploadedUrls) {
+      <ul>
+      @for (url of uploadedUrls; track $index) {
+        <li>
+          <a [href]="url">{{url}}</a>
+        </li>
+      }
+      </ul>
+    }
+  </div>
+
+  <div class="progress" *ngIf="uploading">
+    <div class="bar" [style.width.%]="progress"></div>
+    <small>Uploading... {{ progress }}%</small>
+  </div>
+
+  <p class="success" *ngIf="uploadSuccess">✓ File uploaded successfully</p>
+
+  <button [disabled]="!selectedFiles || uploading" (click)="upload()">Upload</button>
+</div>

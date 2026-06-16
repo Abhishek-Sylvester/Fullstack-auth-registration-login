@@ -21,4 +21,8 @@ export class Auth {
   practice():Observable<any>{
     return this.http.get(this.baseUrl+"/practice",{responseType:'text'})
   }
+
+  upload(uploadData:any):Observable<any>{
+    return this.http.post(this.baseUrl+"/s3/upload",{responseType:'text'})
+  }
 }
