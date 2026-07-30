@@ -16,7 +16,7 @@ export class Registration {
   registrationForm = new FormGroup({
       name: new FormControl('',[Validators.required]),
       email: new FormControl('',[Validators.required,Validators.email]),
-      password: new FormControl('',[Validators.required,this.passwordFormatCheck.bind(this),this.checkPassConfirmPassvalue.bind(this)]),
+      password: new FormControl('',[Validators.required,this.passwordFormatCheck.bind(this)]),
       confirmPassword: new FormControl('',[Validators.required])
   },
   {validators:this.checkPassConfirmPassvalue.bind(this)}

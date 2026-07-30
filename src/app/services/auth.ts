@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { userQUery } from '../models/query-Model.model';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +25,13 @@ export class Auth {
 
   upload(uploadData:any):Observable<any>{
     return this.http.post(this.baseUrl+"/s3/upload",{responseType:'text'})
+  }
+
+  userQuery(queryData:any):Observable<any>{
+    return this.http.post(this.baseUrl+"/putUserQuery",queryData,{responseType:'text'})
+  }
+
+  loadQUeries():Observable<any>{
+    return this.http.get<userQUery[]>(this.baseUrl+"/loadQueries")
   }
 }

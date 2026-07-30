@@ -24,7 +24,7 @@ export class Practice {
   user = {name:"Aaron"}
 
   isDisabled = true;
-  imageUrl = 'assets/logo.png';
+  //imageUrl = 'assets/logo.png';
   buttonLabel = 'Save Task';
   progressValue = 75;
 

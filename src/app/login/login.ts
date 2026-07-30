@@ -36,7 +36,7 @@ export class Login {
         console.log("Success "+res)
         localStorage.setItem("token",res) //storing token at localStorage
         console.log("navigating to practice")
-        this.router.navigate(["/practice"]);
+        this.router.navigate(["/app/practice"]);
       },
       error:(err)=>{
         alert("Username or password entered wrong")

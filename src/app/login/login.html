@@ -1,4 +1,4 @@
-<h1>Login Form</h1>
+<!-- <h1>Login Form</h1>
 
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <label>Username</label>
@@ -16,4 +16,76 @@
     <button type="submit">Login</button>
 
 </form>
-<a [routerLink]="['/register']">Registration page</a>
+<a [routerLink]="['/register']">Registration page</a> -->
+
+
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <div class="auth-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to continue</p>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+            <!-- Username -->
+            <div class="form-group">
+
+                <label for="username">Username</label>
+
+                <input
+                    id="username"
+                    type="text"
+                    formControlName="name"
+                    placeholder="Enter your username">
+
+                @if(loginForm.get('name')?.errors?.['required'] &&
+                loginForm.get('name')?.touched){
+
+                    <small class="error">
+                        Username is required.
+                    </small>
+
+                }
+
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+
+                <label for="password">Password</label>
+
+                <input
+                    id="password"
+                    type="password"
+                    formControlName="password"
+                    placeholder="Enter your password">
+
+                @if(loginForm.get('password')?.errors?.['required'] &&
+                loginForm.get('password')?.touched){
+
+                    <small class="error">
+                        Password is required.
+                    </small>
+
+                }
+
+            </div>
+
+            <button type="submit" class="auth-btn">
+                Login
+            </button>
+
+        </form>
+
+        <div class="auth-footer">
+            Don't have an account?
+            <a routerLink="/register">Create Account</a>
+        </div>
+
+    </div>
+
+</div>

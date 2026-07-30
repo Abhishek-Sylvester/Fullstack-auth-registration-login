@@ -1,47 +1,122 @@
-<h1>Registration Page</h1>
+<div class="auth-container">
 
-<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-    <label>Name:</label>
-    <input type="text" name="username" formControlName="name" placeholder="Name" required>
-    @if(this.registrationForm.get('name')?.invalid && this.registrationForm.get('name')?.touched){
-        <span>Name is required</span>
+    <div class="auth-card">
 
-    }
-    <br><br>
-    <label>Email:</label>
-    <input type="email" name="email" formControlName="email" placeholder="Email" required>
-    @if(this.registrationForm.get('email')?.invalid && this.registrationForm.get('email')?.touched){
-        <span> Email is required</span>
-    }
-    @if(this.registrationForm.get('email')?.errors?.['email']){
-        <span>Please enter valid email</span>
-    }
-    <br><br>
-    <label>Password:</label>
-    <input type="password" name="password" formControlName="password" placeholder="Password" required>
-    @if(this.registrationForm.get('password')?.invalid && this.registrationForm.get('password')?.touched){
-        <span>Password is required</span>
-    }
-    @if(this.registrationForm.get('password')?.errors?.['ToShort']){
-        <span>Password should be min of 8 characters</span>
-    }
-    @if(this.registrationForm.get('password')?.errors?.['containsSpecialChar']){
-        <span>Password should not contain the specified specialChars</span>
-    }
-    @if(this.registrationForm.errors?.['passwordMismatch'] && this.registrationForm.get('password')?.touched){
-        <span>Password and ConfirmPassword should match</span>
-    }
-    <br><br>
-    <label>Confirm Password:</label>
-    <input type="password" name="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password" required>
-    @if(this.registrationForm.get('confirmPassword')?.invalid && this.registrationForm.get('confirmPassword')?.touched){
-        <span>confirmPassword is required</span>
-    }
-    @if(this.registrationForm.errors?.['passwordMismatch'] && this.registrationForm.get('confirmPassword')?.touched){
-        <span>Password and ConfirmPassword should match</span>
-    }
-    <br><br>
-    <button type="submit">Register</button>
+        <div class="auth-header">
+            <h1>Create Account</h1>
+            <p>Register to access your account</p>
+        </div>
 
-</form>
-<a [routerLink]="['/login']">Login page</a>
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+            <!-- Name -->
+            <div class="form-group">
+                <label for="name">Full Name</label>
+
+                <input
+                    id="name"
+                    type="text"
+                    formControlName="name"
+                    placeholder="Enter your full name">
+
+                @if (registrationForm.get('name')?.invalid &&
+                registrationForm.get('name')?.touched) {
+                    <small class="error">
+                        Name is required.
+                    </small>
+                }
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+
+                <input
+                    id="email"
+                    type="email"
+                    formControlName="email"
+                    placeholder="Enter your email">
+
+                @if (registrationForm.get('email')?.errors?.['required'] &&
+                registrationForm.get('email')?.touched) {
+                    <small class="error">
+                        Email is required.
+                    </small>
+                }
+
+                @if (registrationForm.get('email')?.errors?.['email']) {
+                    <small class="error">
+                        Please enter a valid email address.
+                    </small>
+                }
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <input
+                    id="password"
+                    type="password"
+                    formControlName="password"
+                    placeholder="Enter your password">
+
+                @if (registrationForm.get('password')?.errors?.['required'] &&
+                registrationForm.get('password')?.touched) {
+                    <small class="error">
+                        Password is required.
+                    </small>
+                }
+
+                @if (registrationForm.get('password')?.errors?.['ToShort']) {
+                    <small class="error">
+                        Password must contain at least 8 characters.
+                    </small>
+                }
+
+                @if (registrationForm.get('password')?.errors?.['containsSpecialChar']) {
+                    <small class="error">
+                        Password cannot contain / # $ %
+                    </small>
+                }
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+
+                <input
+                    id="confirmPassword"
+                    type="password"
+                    formControlName="confirmPassword"
+                    placeholder="Confirm your password">
+
+                @if (registrationForm.get('confirmPassword')?.errors?.['required'] &&
+                registrationForm.get('confirmPassword')?.touched) {
+                    <small class="error">
+                        Confirm Password is required.
+                    </small>
+                }
+
+                @if (registrationForm.errors?.['passwordMismatch'] &&
+                registrationForm.get('confirmPassword')?.touched) {
+                    <small class="error">
+                        Passwords do not match.
+                    </small>
+                }
+            </div>
+
+            <button type="submit" class="auth-btn">
+                Create Account
+            </button>
+
+        </form>
+
+        <div class="auth-footer">
+            Already have an account?
+            <a routerLink="/login">Login</a>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,159 @@
+<div class="query-container">
+
+    <div class="query-card">
+
+        <div class="query-header">
+            <h2>Raise a Query</h2>
+            <p>Please provide the details below.</p>
+        </div>
+
+        <form [formGroup]="queryForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-group">
+                <label>Name</label>
+                <input
+                    type="text"
+                    formControlName="name"
+                    placeholder="Enter your name">
+                @if (queryForm.get("name")?.errors?.["required"] && queryForm.get("name")?.touched) {
+                    <small class="error">
+                        name is reuqired
+                    </small>
+                }
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input
+                    type="email"
+                    formControlName="email"
+                    placeholder="Enter your email">
+                @if (queryForm.get("email")?.errors?.["required"] && queryForm.get("email")?.touched) {
+                    <small class="error">
+                        name is reuqired
+                    </small>
+                }
+            </div>
+
+            <div class="form-group">
+                <label>Subject</label>
+                <input
+                    type="text"
+                    formControlName="subject"
+                    placeholder="Enter query subject">
+                @if (queryForm.get("subject")?.errors?.["required"] && queryForm.get("subject")?.touched) {
+                    <small class="error">
+                        email is reuqired
+                    </small>
+                }
+            </div>
+
+            <div class="form-group">
+                <label>Priority</label>
+
+                <select formControlName="priority">
+                    <option value="">Select Priority</option>
+                    <option value="LOW">Low</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="HIGH">High</option>
+                </select>
+
+                @if (queryForm.get("priority")?.errors?.["required"] && queryForm.get("priority")?.touched) {
+                    <small class="error">
+                        Please select priority
+                    </small>
+                }
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+
+                <textarea
+                    rows="5"
+                    formControlName="description"
+                    placeholder="Describe your query">
+                </textarea>
+                @if (queryForm.get("description")?.errors?.["required"] && queryForm.get("description")?.touched) {
+                    <small class="error">
+                        description is reuqired
+                    </small>
+                }
+            </div>
+
+            <button class="query-btn" type="submit" [disabled]="queryForm.invalid">
+                Submit Query
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="table-card">
+
+        <div class="table-header">
+            <h2>Submitted Queries</h2>
+        </div>
+
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef>
+                    Name
+                </mat-header-cell>
+                <mat-cell *matCellDef="let query">
+                    {{query.name}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="subject">
+                <mat-header-cell *matHeaderCellDef>
+                    Subject
+                </mat-header-cell>
+                <mat-cell *matCellDef="let query">
+                    {{query.subject}}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="priority">
+                <mat-header-cell *matHeaderCellDef>
+                    Priority
+                </mat-header-cell>
+
+                <mat-cell *matCellDef="let query">
+                    {{ query.priority }}
+                </mat-cell>
+            </ng-container>
+
+             <!-- Created On -->
+            <ng-container matColumnDef="created on">
+                <mat-header-cell *matHeaderCellDef>
+                    Created On
+                </mat-header-cell>
+
+                <mat-cell *matCellDef="let query">
+                    {{ query.insertDate | date: 'dd/MM/yyyy'  }}
+                </mat-cell>
+            </ng-container>
+
+            <!-- Action -->
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef>
+                 Action
+                </mat-header-cell>
+
+                <mat-cell *matCellDef="let query">
+                <button mat-button (click)="viewQueryCard()">
+                    View
+                </button>
+            </mat-cell>
+            </ng-container>
+             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons aria-label="Select page of query list"></mat-paginator>
+
+        <p>Total records:{{userQyeryList.length}}</p>
+        
+
+    </div>
+
+</div>
