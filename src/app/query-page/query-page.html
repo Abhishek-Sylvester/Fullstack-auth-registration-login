@@ -139,7 +139,7 @@
                 </mat-header-cell>
 
                 <mat-cell *matCellDef="let query">
-                <button mat-button (click)="viewQueryCard()">
+                <button mat-button (click)="viewQueryCard(query)">
                     View
                 </button>
             </mat-cell>
@@ -155,5 +155,7 @@
         
 
     </div>
+
+    
 
 </div>

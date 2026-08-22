@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ɵEmptyOutletComponent } from "@angular/router";
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { QueryDetailsDialog } from '../query-details-dialog/query-details-dialog';
 
 @Component({
   selector: 'app-query-page',
@@ -25,7 +27,7 @@ import { DatePipe } from '@angular/common';
 })
 export class QueryPage implements OnInit {
 
-  constructor(private authService:Auth, private cdr:ChangeDetectorRef){}
+  constructor(private authService:Auth, private cdr:ChangeDetectorRef, private dialog:MatDialog){}
 
   queryForm = new FormGroup({
     name: new FormControl('',[Validators.required]),
@@ -44,6 +46,7 @@ export class QueryPage implements OnInit {
     "action"
   ]
   dataSource = new MatTableDataSource <userQUery>();
+  selectedQuery:userQUery | null=null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -99,7 +102,12 @@ export class QueryPage implements OnInit {
 
   }
 
-  viewQueryCard(){
+  viewQueryCard(query:userQUery){
     console.log("viewQueryCard function called")
+    this.dialog.open(QueryDetailsDialog,{
+      data:query
+    });
+    //this.selectedQuery = query;
+    
   }
 }

@@ -34,7 +34,9 @@ export class Login {
     this.authService.login(formData).subscribe({
       next:(res)=>{
         console.log("Success "+res)
-        localStorage.setItem("token",res) //storing token at localStorage
+        console.log("Setting this value: "+res.accessToken)
+        localStorage.setItem("accessToken",res.accessToken) //storing JWT token at localStorage
+        localStorage.setItem("refreshToken",res.refreshToken) //storing refresh token
         console.log("navigating to practice")
         this.router.navigate(["/app/practice"]);
       },

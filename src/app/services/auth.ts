@@ -16,7 +16,7 @@ export class Auth {
   }
 
   login(user:any):Observable<any>{
-    return this.http.post(this.baseUrl+"/login",user,{responseType:'text'});
+    return this.http.post(this.baseUrl+"/login",user);
   }
 
   practice():Observable<any>{
@@ -33,5 +33,12 @@ export class Auth {
 
   loadQUeries():Observable<any>{
     return this.http.get<userQUery[]>(this.baseUrl+"/loadQueries")
+  }
+
+  logout(refreshToken:String|null):Observable<any>{
+    return this.http.post(this.baseUrl+"/logout",refreshToken,{responseType:'text'})
+  }
+  refresh(refreshToken:String):Observable<any>{
+    return this.http.post(this.baseUrl+"/refresh",refreshToken,{responseType:'text'})
   }
 }

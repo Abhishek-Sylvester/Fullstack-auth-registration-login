@@ -1,0 +1,45 @@
+mat-dialog-content{
+    min-width:550px;
+    padding-top:10px;
+}
+.mat-dialog-title{
+    text-align: center;
+}
+.form-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:18px;
+}
+
+.form-group label{
+    font-weight:600;
+    margin-bottom:8px;
+    color:#374151;
+}
+
+.form-group input,
+.form-group textarea{
+
+    width:100%;
+    padding:12px 14px;
+
+    border:1px solid #d1d5db;
+    border-radius:10px;
+
+    background:#f9fafb;
+
+    font-size:15px;
+}
+
+.form-group textarea{
+    resize:none;
+}
+
+input[readonly],
+textarea[readonly]{
+    cursor:default;
+}
+
+mat-dialog-actions{
+    padding:20px 24px;
+}
