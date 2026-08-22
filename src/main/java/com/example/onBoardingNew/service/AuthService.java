@@ -1,6 +1,7 @@
 package com.example.onBoardingNew.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.Optional;
 
@@ -15,7 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.onBoardingNew.model.LoginResponseModel;
+import com.example.onBoardingNew.model.RefreshTokenModel;
 import com.example.onBoardingNew.model.USerModel;
+import com.example.onBoardingNew.repository.RequestTokenRepository;
 import com.example.onBoardingNew.repository.UserRepository;
 import com.example.onBoardingNew.util.JwtUtil;
 
@@ -36,6 +41,8 @@ public class AuthService {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private JwtUtil jwtUtil;
+	@Autowired
+	RequestTokenRepository requestTokenRepository;
 
 	@Value("${aws.accessKeyId}")
 	private String awsAccessKey;
@@ -57,25 +64,48 @@ public class AuthService {
 		return "User registered successfully";
 	}
 
-	public String findUser(USerModel userModel) {
+	public LoginResponseModel findUser(USerModel userModel) {
 		Optional<USerModel> userData = userRepository.findByUsername(userModel.getUsername());
 		if (userData.isPresent()) {
 			System.out.println("The user data is present");
 			USerModel existingUser = userData.get();
 			if (passwordEncoder.matches(userModel.getPassword(), existingUser.getPassword())) {
-				String token = jwtUtil.generateToken(existingUser.getUsername());
 				System.out.println("Password correct");
-				return token;
+				String Jwttoken = jwtUtil.generateToken(existingUser.getUsername());// to create jwt token
+				RefreshTokenModel refreshToken = jwtUtil.createRefreshToken(existingUser.getUsername()); // to create
+																											// refresh
+																											// token
+				return new LoginResponseModel(Jwttoken, refreshToken.getToken());
 			} else {
 				System.out.println("Password incorrect");
-				return "Password incorrect";
+				return null;
 			}
 
 		} else {
 
 			System.out.println("User data not present");
 		}
-		return "User data not present";
+		return null;
+	}
+
+	public String refreshAccessToken(String refreshToken) {
+		Optional<RefreshTokenModel> Token = requestTokenRepository.findByToken(refreshToken);
+
+		if (Token.isEmpty()) {
+			return null;
+		}
+		RefreshTokenModel validToken = Token.get();
+
+		if (validToken.getExpiryDate().before(new Date())) {
+			return null;
+		}
+		String jwtToken = jwtUtil.generateToken(validToken.getUserName());
+		return jwtToken;
+	}
+
+	@Transactional
+	public void logoutUser(String refreshToken) {
+		requestTokenRepository.deleteByToken(refreshToken);
 	}
 
 	// Method to upload data onto s3

@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.onBoardingNew.model.LoginResponseModel;
 import com.example.onBoardingNew.model.USerModel;
 import com.example.onBoardingNew.service.AuthService;
 
@@ -37,15 +38,32 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody USerModel data) {
+	public ResponseEntity<?> login(@RequestBody USerModel data) {
 		System.out.println("Login controller called");
-		String response = authService.findUser(data);
+		LoginResponseModel response = authService.findUser(data);
 		System.out.println("This is the response: " + response);
-		if (response.equals("User data not present") || response.equals("Password incorrect")) {
-			return ResponseEntity.status(401).body(response);
+		if (response == null) {
+			return ResponseEntity.status(401).body("Invalid username or password");
 		}
 		return ResponseEntity.ok(response);
 
+	}
+
+	@PostMapping("/refresh")
+	public ResponseEntity<?> getNewToken(@RequestBody String refreshToken) {
+		String newAccessToken = authService.refreshAccessToken(refreshToken);
+		if (newAccessToken == null) {
+			return ResponseEntity.status(401).body("Invalid refresh token");
+		} else {
+			return ResponseEntity.ok(newAccessToken);
+		}
+
+	}
+
+	@PostMapping("/logout")
+	public ResponseEntity<?> logoutUser(@RequestBody String refreshToken) {
+		authService.logoutUser(refreshToken);
+		return ResponseEntity.ok("User logged out");
 	}
 
 	@GetMapping("/practice")
