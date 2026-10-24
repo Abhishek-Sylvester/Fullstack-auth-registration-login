@@ -7,6 +7,7 @@ import { authGuard } from './guards/auth-gaurd-guard';
 import { Upload } from './upload/upload';
 import { QueryPage } from './query-page/query-page';
 import { MainLayout } from './layouts/main-layout/main-layout';
+import { OauthCallback } from './oauth-callback/oauth-callback';
 
 
 export const routes: Routes = [
@@ -14,6 +15,7 @@ export const routes: Routes = [
     {path:'login', component:Login},
     {path:'signup', component:Signup},
     {path:'register',component:Registration},
+    {path:'oauth-callback',component:OauthCallback},
     
 
     { path:'app',

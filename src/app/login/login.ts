@@ -46,4 +46,9 @@ export class Login {
       }
     })
   }
+
+  loginWithGoogle(){
+    console.log("Login with Google clicked");
+    this.authService.OAuthLogin();
+  }
 }

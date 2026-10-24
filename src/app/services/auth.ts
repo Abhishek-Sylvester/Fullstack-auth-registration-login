@@ -41,4 +41,9 @@ export class Auth {
   refresh(refreshToken:String):Observable<any>{
     return this.http.post(this.baseUrl+"/refresh",refreshToken,{responseType:'text'})
   }
+
+  OAuthLogin(){
+    window.location.href ="http://localhost:8080/oauth2/authorization/google";
+    
+  }
 }
